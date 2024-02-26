@@ -17,10 +17,11 @@ A QR code corresponding to the entered information will be generated and display
 Preview
 
 ## Technologies Used
-HTML
-CSS
-JavaScript
-Dependencies
+HTML,
+CSS,
+JavaScript,
+Dependencies.
+
 QR Server API - Used for generating QR codes.
 
 ## How it Works
