@@ -5,11 +5,11 @@ This simple web application allows users to generate QR codes by entering inform
 Open index.html in your web browser.
 Fill in the required information in the input fields:
 
-Name: Name of the user.
-Type: Type of information.
-Number: Numeric value.
-Qty: Quantity.
-Size: Size information.
+Name: Name of the user,
+Type: Type of information,
+Number: Numeric value,
+Qty: Quantity,
+Size: Size information,
 Color: Color information.
 
 Click the "Generate QR Code" button.
