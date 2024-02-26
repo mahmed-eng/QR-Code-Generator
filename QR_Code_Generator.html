@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>QR-CODE Generator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      align-items: center;
+      background: #f0f0f0;
+      justify-content: center;
+    }
+
+    .qr_box {
+      max-width: 400px;
+      width: 100%;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    header {
+      background: #42a22b;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      border-bottom: 2px solid #2a3032;
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    header p {
+      margin-top: 5px;
+      color: #e0e0e0;
+      font-size: 14px;
+    }
+
+    .form {
+      padding: 20px;
+    }
+
+    .form input {
+      width: calc(100% - 20px);
+      margin-bottom: 15px;
+      height: 40px;
+      border: 1px solid #ddd;
+      padding: 0 10px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .form button {
+      width: 100%;
+      height: 40px;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #fff;
+      background: #42a22b;
+      transition: background 0.3s;
+    }
+
+    .form button:hover {
+      background: #3d9021;
+    }
+
+    .qr-code {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      background: #f0f0f0;
+      overflow: hidden;
+    }
+
+    .qr-code img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <div class="qr_box">
+    <header>
+      <h1>QR Code Generator</h1>
+      <p>Enter user information to generate QR Code</p>
+    </header>
+    <div class="form">
+      <input type="text" placeholder="Name">
+      <input type="text" placeholder="Type">
+      <input type="text" placeholder="Number">
+      <input type="text" placeholder="Qty">
+      <input type="text" placeholder="Size">
+      <input type="text" placeholder="Color">
+      <button>Generate QR Code</button>
+    </div>
+    <div class="qr-code">
+      <img src="" alt="qr-code">
+    </div>
+  </div>
+  <script>
+    const qr_box = document.querySelector(".qr_box"),
+      qrInputs = qr_box.querySelectorAll(".form input"),
+      generateBtn = qr_box.querySelector(".form button"),
+      qrImg = qr_box.querySelector(".qr-code img");
+    let preValue;
+
+    generateBtn.addEventListener("click", () => {
+      let qrValue = Array.from(qrInputs).map(input => input.value.trim()).join(",");
+      if (!qrValue || preValue === qrValue) return;
+      preValue = qrValue;
+      generateBtn.innerText = "Generating QR Code...";
+      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qrValue}`;
+      qrImg.addEventListener("load", () => {
+        qr_box.classList.add("active");
+        generateBtn.innerText = "Generate QR Code";
+      });
+    });
+
+    qrInputs.forEach(input => {
+      input.addEventListener("keyup", () => {
+        if (!Array.from(qrInputs).some(input => input.value.trim())) {
+          qr_box.classList.remove("active");
+          preValue = "";
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
